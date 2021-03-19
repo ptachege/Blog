@@ -1,0 +1,25 @@
+{% extends 'Blogsite/base.html' %}
+{%block body%}
+
+    <div class="container">
+        {% for post in posts %}
+        <div class="well">
+            {% if posts %}
+                  <a href="{% url 'Blogsite:detail' post.id %}"> <h2>  {{post.title}}</h2></a>
+                    <p>
+                        {{post.body}}
+                    </p>
+                <hr>
+            <small>
+              Created at  {{post.created_at}} by {{post.User.username}}
+            </small>
+            {%else%}
+            <p>
+                There are no Posts
+            </p>
+            {%endif%}
+        </div>
+        {%endfor%}
+    </div>
+
+{%endblock%}

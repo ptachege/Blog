@@ -1,0 +1,38 @@
+{% extends 'Blogsite/base.html' %}
+{%block body%}
+
+    <div class="container">
+        <div class="well">
+            <h2>Post Detail</h2>
+            <hr>
+            <h3>{{post.title}}</h3>
+            <p>
+                {{post.body}}
+            </p>
+            <hr>
+            create at {{post.created_at}} by {{post.User.username}}
+            <hr>
+            <table>
+                <tr>
+                     {% if request.user.is_authenticated %}
+                        {% if userid == request.user.id %}
+                    <td>
+            <a href="{% url 'Blogsite:edit_post' post.id %}" class="btn btn-primary">Edit</a>
+                        </td>
+
+                    <td>
+            <form method="post" class="form-inline" action="{%  url 'Blogsite:delete_post' post.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="{{blog_id}}" value="{{ post.id}}">
+
+                <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+            </form>
+                    </td>
+                        {%endif%}
+                        {% endif %}
+
+                </tr>
+                </table>
+        </div>
+    </div>
+{%endblock%}
